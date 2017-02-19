@@ -235,6 +235,8 @@ public class List_2420Test {
 		assertTrue(3 == reversedData.get(2));
 	}
 	
+	// TODO test list tostring
+	
 	// ----------------- NODE INNER CLASS TESTS ---------------
 	
 	// TODO toString

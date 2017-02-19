@@ -8,6 +8,9 @@ import java.util.NoSuchElementException;
 
 public class Linked_List_2420<Type> implements List_2420<Type> {
 
+	private Node<Type> first;
+	private int size;
+
 	/**
 	 * FIXME: comments
 	 *
@@ -43,10 +46,10 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		 *         point at anything, then the size would be 1.
 		 */
 		int length() {
-			if(this.next == null) {
+			if (this.next == null) {
 				return 1;
 			}
-			
+
 			return 1 + next.length();
 		}
 
@@ -58,13 +61,13 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		 * @return true if item in chain
 		 */
 		boolean contains_recursive(Type item) {
-			if(data.equals(item)) {
+			if (data.equals(item)) {
 				return true;
-			}else if(next == null) {
+			} else if (next == null) {
 				return false;
 			}
 			return next.contains_recursive(item);
- 		}
+		}
 
 		/**
 		 * This function must be written recursively (using a helper method,
@@ -80,9 +83,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		ArrayList<Type> to_ArrayList_post_recursive() {
 			return to_ArrayList_post_recursive(new ArrayList<Type>());
 		}
-		
+
 		private ArrayList<Type> to_ArrayList_post_recursive(ArrayList<Type> arrayList) {
-			if(next == null) {
+			if (next == null) {
 				arrayList.add(data);
 				return arrayList;
 			}
@@ -106,101 +109,203 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		 * @return a string representation of this chain of nodes
 		 */
 		public String toString() {
-			if(next == null) {
+			if (next == null) {
 				return "null";
 			}
 			return "[" + data + "]--> " + next.toString();
 		}
 	}
 
+	public Linked_List_2420() {
+		first = null;
+		size = 0;
+	}
+
+	/**
+	 * Add node to list.
+	 * 
+	 * Note: node may already point to other nodes.
+	 * 
+	 * @param first
+	 */
+	public Linked_List_2420(Node<Type> firstNode) {
+		first = firstNode;
+		size = first.length();
+	}
+
 	@Override
 	public void add_first(Type data) {
-		// TODO Auto-generated method stub
-
+		Node<Type> newFirst = new Node<>(data, first);
+		first = newFirst;
+		size++;
 	}
 
 	@Override
 	public void add_last(Type data) {
-		// TODO Auto-generated method stub
-
+		Node<Type> currentNode = first;
+		while (currentNode.next != null) {
+			currentNode = currentNode.next;
+		}
+		Node<Type> newLast = new Node<>(data, null);
+		currentNode.next = newLast;
+		size++;
 	}
 
 	@Override
 	public void add_middle(int after, Type data) {
-		// TODO Auto-generated method stub
+		Node<Type> currentNode = first;
+		for (int index = 0; index < after; index++) {
+			if (currentNode.next == null) {
+				// Die a horrible death.
+				throw new IndexOutOfBoundsException();
+			}
+			currentNode = currentNode.next;
+		}
+		
+		Node<Type> tempNext = currentNode.next;
+		
+		Node<Type> newNode = new Node<>(data, tempNext);
+		currentNode.next = newNode;
 
+		size++;
 	}
 
+	/**
+	 * Clears array.
+	 */
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		// Null pointer let garbage collecter do its thing.
+		first = null;
+		size = 0;
 	}
 
 	@Override
 	public boolean contains(Type item) {
-		// TODO Auto-generated method stub
+		for (Node<Type> currentNode = first; currentNode != null; currentNode = currentNode.next) {
+			if (currentNode.data.equals(item)) return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean contains_recursive(Type item) {
-		// TODO Auto-generated method stub
-		return false;
+		return first.contains_recursive(item);
 	}
 
 	@Override
 	public Type get_first() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		if (first == null) {
+			throw new NoSuchElementException();
+		}
+		return first.data;
 	}
 
 	@Override
 	public Type get_last() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		Node<Type> currentNode = first;
+		while (currentNode.next != null) {
+			currentNode = currentNode.next;
+		}
+		return currentNode.data;
 	}
 
 	@Override
 	public Type remove_first() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		if (first == null) {
+			throw new NoSuchElementException();
+		}
+		Type firstValue = first.data;
+		first = first.next;
+		size--;
+		return firstValue;
 	}
 
 	@Override
 	public Type remove_last() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		Type lastValue;
+		if (first.next == null) {
+			lastValue = first.data;
+			first = null;
+		} else {
+			Node<Type> currentNode = first;
+			while (currentNode.next.next != null) {
+				currentNode = currentNode.next;
+			}
+			lastValue = currentNode.next.data;
+			currentNode.next = null;
+		}		
+		size--;
+		return lastValue;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public void reverse() {
-		// TODO Auto-generated method stub
-
+		Node<Type> before = null;
+		Node<Type> current = first;
+		
+		while(current != null) {
+			Node<Type> temp = current.next;
+			current.next = before;
+			
+			before = current;
+			current = temp;
+		}
+		
+		first = before;
 	}
 
 	@Override
 	public int compute_size_recursive() {
-		// TODO Auto-generated method stub
-		return 0;
+		return first.length();
 	}
 
 	@Override
 	public ArrayList<Type> to_ArrayList_post_recurse() {
-		// TODO Auto-generated method stub
-		return null;
+		return first.to_ArrayList_post_recursive();
 	}
 
 	@Override
 	public ArrayList<Type> to_ArrayList() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Type> toArrayList = new ArrayList<>();
+		for (Node<Type> currentNode = first; currentNode != null; currentNode = currentNode.next) {
+			toArrayList.add(currentNode.data);
+		}
+		return toArrayList;
+	}
+
+	/**
+	 *
+	 * FIXME: this method must NOT use recursion 
+	 * FIXME: for our purposes DO NOT use the Node toString method here
+	 *
+	 * Creates a string that describes the contents of the list, starting with
+	 * the size in parentheses for example, a list of the nubmers 0, 1, 2, 3
+	 * would print as:
+	 * 
+	 * "(4) [0]--> [1]--> [2]--> [3]--> null"
+	 *
+	 * an empty list should simply return the string "empty"
+	 *
+	 * WARNING: the syntax must be exact. "open parenthesis, size, close
+	 * parenthesis, space, open square bracket, data, close square bracket,
+	 * hyphen, hyphen, greater than space, ... null"
+	 *
+	 * @return a string representation of this chain of nodes
+	 */
+	@Override
+	public String toString() {
+		String description = "(" + size + ") ";
+		for (Node<Type> currentNode = first; currentNode != null; currentNode = currentNode.next) {
+			description += "[" + currentNode.data + "]--> ";
+		}
+		description += "null";
+		return description;
 	}
 
 }
