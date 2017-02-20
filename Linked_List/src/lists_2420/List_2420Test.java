@@ -93,12 +93,10 @@ public class List_2420Test {
 	 */
 	@Test
 	public void testContainsRecursive() {
-		if (sampleList instanceof Linked_List_2420) {
-			assertTrue(sampleList.contains_recursive(2));
-			assertTrue(sampleList.contains_recursive(3));
-			assertTrue(sampleList.contains_recursive(5));
-			assertFalse(sampleList.contains_recursive(9));
-		}
+		assertTrue(sampleList.contains_recursive(2));
+		assertTrue(sampleList.contains_recursive(3));
+		assertTrue(sampleList.contains_recursive(5));
+		assertFalse(sampleList.contains_recursive(9));
 	}
 
 	/**
