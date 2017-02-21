@@ -203,6 +203,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 
 	@Override
 	public Type get_last() throws NoSuchElementException {
+		if (first == null) {
+			throw new NoSuchElementException();
+		}
 		Node<Type> currentNode = first;
 		while (currentNode.next != null) {
 			currentNode = currentNode.next;
@@ -223,6 +226,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 
 	@Override
 	public Type remove_last() throws NoSuchElementException {
+		if (first == null) {
+			throw new NoSuchElementException();
+		}
 		Type lastValue;
 		if (first.next == null) {
 			lastValue = first.data;
@@ -262,6 +268,7 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 
 	@Override
 	public int compute_size_recursive() {
+		if (first == null) return 0;
 		return first.length();
 	}
 
