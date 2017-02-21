@@ -114,7 +114,7 @@ public class Timing {
 	public static void main(String[] args) {
 		
 		testInsertMethod(Linked_List_2420.class,InsertType.BEGINNING,"");
-		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,"");
+//		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,"");
 		testInsertMethod(Linked_List_2420.class,InsertType.END,"");
 		
 //		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,"");

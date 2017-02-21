@@ -21,7 +21,7 @@ public class List_2420Test {
 	 */
 	public List_2420<Integer> new_list() {
 		//return new Linked_List_2420<Integer>();
-		return new Array_List_2420();
+		return new Array_List_2420(2);
 	}
 
 	@Before
@@ -35,6 +35,15 @@ public class List_2420Test {
 		smallList.add_first(4);
 	}
 
+	@Test
+	public void testExpand() {
+		if (sampleList instanceof Array_List_2420) {
+			smallList.add_last(2);
+			smallList.add_last(4);
+			assertEquals(4, ((Array_List_2420)smallList).backingStore.length);
+		}
+	}
+	
 	/**
 	 * Test adding val to front of list.
 	 */
@@ -49,7 +58,7 @@ public class List_2420Test {
 			fail("get_first threw an exception");
 		}
 	}
-
+	
 	/**
 	 * Test adding val to end of list.
 	 */

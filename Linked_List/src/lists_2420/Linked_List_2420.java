@@ -268,7 +268,7 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		Node<Type> before = null;
 		Node<Type> current = first;
 		
-		while(current != null) {
+		while (current != null) {
 			Node<Type> temp = current.next;
 			current.next = before;
 			

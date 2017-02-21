@@ -16,8 +16,8 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 * The array contains the elements, with the rest of the elements being
 	 * null.
 	 */
-	private Integer[] backingStore = new Integer[2]; // TODO change to 2 for
-														// testing
+	// currently protected for unit testing
+	protected Integer[] backingStore = new Integer[1024]; 
 	// both add methods must be tested when they will make the size of the array
 	// bigger
 	private int size = 0;
@@ -37,6 +37,9 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 * @return the value at index
 	 */
 	private Integer backingStoreGet(int index) {
+		if (index < 0) {
+			index += backingStore.length;
+		}
 		int backingStoreIndex = (start + index) % backingStore.length;
 		return backingStore[backingStoreIndex];
 	}
@@ -54,8 +57,18 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 * @param item
 	 */
 	private void backingStoreSet(int index, Integer item) {
+		if (index < 0) {
+			index += backingStore.length;
+		}
 		int backingStoreIndex = (start + index) % backingStore.length;
 		backingStore[backingStoreIndex] = item;
+	}
+	
+	private void decrementStart() {
+		start--;
+		if (start < 0) {
+			start += backingStore.length;
+		}
 	}
 
 	/**
@@ -70,15 +83,24 @@ public class Array_List_2420 implements List_2420<Integer> {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public Array_List_2420() {
 		// we don't need to do anything, all of the fields have good default
 		// values.
 	}
+	
+	public Array_List_2420(int size) {
+		backingStore = new Integer[size];
+	}
 
 	/**
 	 * Double the size of the backing store, in order to fit new elements
+	 * 
+	 * This is protected so that it can be unit tested
 	 */
-	private void expandArray() {
+	protected void expandArray() {
 		// allocate and copy new array
 		Integer[] newBackingStore = new Integer[backingStore.length * 2];
 		for (int index = 0; index < backingStore.length; index++) {
@@ -112,7 +134,14 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public void add_first(Integer data) {
-		add_middle(0, data);
+		if (size >= backingStore.length) {
+			expandArray();
+			// recurse once, now with more room in the array.
+			add_first(data);
+		}
+		
+		backingStoreSet(-1, data);
+		decrementStart();
 	}
 
 	/**
