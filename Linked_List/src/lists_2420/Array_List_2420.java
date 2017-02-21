@@ -214,6 +214,9 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public Integer get_first() throws NoSuchElementException {
+		if(size == 0) {
+			throw new NoSuchElementException();
+		}
 		return backingStoreGet(start);
 	}
 
@@ -224,6 +227,9 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public Integer get_last() throws NoSuchElementException {
+		if(size == 0) {
+			throw new NoSuchElementException();
+		}
 		return backingStoreGet(size - 1);
 	}
 
@@ -234,16 +240,21 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public Integer remove_first() throws NoSuchElementException {
+		if(size == 0) {
+			throw new NoSuchElementException();
+		}
+		
 		Integer first = get_first();
 
 		// Set first val to null.
 		backingStoreSet(start, null);
 
 		// Move all elements to left one.
-		for (int index = 1; backingStore[index] == null; index++) {
+		for (int index = 1; backingStore[index] != null; index++) {
 			swap(index, index - 1);
 		}
 
+		size--;
 		return first;
 	}
 
@@ -259,6 +270,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 		// Set last val to null.
 		backingStoreSet(size - 1, null);
 
+		size--;
 		return last;
 	}
 
@@ -276,10 +288,14 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public void reverse() {
+		if(size == 0) {
+			return;
+		}
+		
 		int middle = size / 2;
 
 		for (int index = start; index <= middle; index++) {
-			swap(index, size - index + start);
+			swap(index, size - 1 - index + start);
 		}
 	}
 
@@ -291,8 +307,8 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 * @return 1 + size of array after it.
 	 */
 	private int compute_size_recursive_helper(int index) {
-		if (index == size - 1) {
-			return 1;
+		if (backingStore[index] == null) {
+			return 0;
 		}
 
 		return 1 + compute_size_recursive_helper(index + 1);
@@ -326,4 +342,13 @@ public class Array_List_2420 implements List_2420<Integer> {
 		return toArrayList;
 	}
 
+	@Override
+	public String toString() {
+		String toString = "(" + size + ") ";
+		for(int index = start; index < size; index++) {
+			toString += "[" + backingStoreGet(index) + "]--> ";
+		}
+		toString += "null";
+		return toString;
+	}
 }

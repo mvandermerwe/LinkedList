@@ -20,8 +20,8 @@ public class List_2420Test {
 	 * allow changing between linked and array lists
 	 */
 	public List_2420<Integer> new_list() {
-		return new Linked_List_2420<Integer>();
-		// return new Array_List_2420();
+		//return new Linked_List_2420<Integer>();
+		return new Array_List_2420();
 	}
 
 	@Before
@@ -180,9 +180,9 @@ public class List_2420Test {
 		}
 
 		// one size array test.
-		firstVal = sampleList.remove_first();
-		assertTrue(4 == firstVal);
-		assertEquals(0, sampleList.size());
+		firstVal = smallList.remove_first();
+		assertTrue(new Integer(4).equals(firstVal));
+		assertEquals(0, smallList.size());
 	}
 
 	/**
@@ -206,9 +206,9 @@ public class List_2420Test {
 		}
 
 		// one size array test.
-		lastVal = sampleList.remove_last();
+		lastVal = smallList.remove_last();
 		assertTrue(4 == lastVal);
-		assertEquals(0, sampleList.size());
+		assertEquals(0, smallList.size());
 	}
 
 	/**
