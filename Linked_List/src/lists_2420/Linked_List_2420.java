@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 public class Linked_List_2420<Type> implements List_2420<Type> {
 
 	private Node<Type> first;
+	private Node<Type> last;
 	private int size;
 
 	/**
@@ -133,6 +134,7 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 	 */
 	public Linked_List_2420(Node<Type> firstNode) {
 		first = firstNode;
+		last = firstNode;
 		size = first.length();
 	}
 
@@ -141,19 +143,24 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		Node<Type> newFirst = new Node<>(data, first);
 		first = newFirst;
 		size++;
+		// If this is our first node, place last pointer here too.
+		if (size == 1) {
+			last = newFirst;
+		}
 	}
 
 	@Override
 	public void add_last(Type data) {
+		// If nothing in list, adds new first.
 		if (first == null) {
 			add_first(data);
 		}
-		Node<Type> currentNode = first;
-		while (currentNode.next != null) {
-			currentNode = currentNode.next;
-		}
+
+		// Create and add.
 		Node<Type> newLast = new Node<>(data, null);
-		currentNode.next = newLast;
+		last.next = newLast;
+		last = newLast;
+
 		size++;
 	}
 
@@ -174,9 +181,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 			}
 			currentNode = currentNode.next;
 		}
-		
+
 		Node<Type> tempNext = currentNode.next;
-		
+
 		Node<Type> newNode = new Node<>(data, tempNext);
 		currentNode.next = newNode;
 
@@ -190,13 +197,15 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 	public void clear() {
 		// Null pointer let garbage collecter do its thing.
 		first = null;
+		last = null;
 		size = 0;
 	}
 
 	@Override
 	public boolean contains(Type item) {
 		for (Node<Type> currentNode = first; currentNode != null; currentNode = currentNode.next) {
-			if (currentNode.data.equals(item)) return true;
+			if (currentNode.data.equals(item))
+				return true;
 		}
 		return false;
 	}
@@ -219,11 +228,8 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		if (first == null) {
 			throw new NoSuchElementException();
 		}
-		Node<Type> currentNode = first;
-		while (currentNode.next != null) {
-			currentNode = currentNode.next;
-		}
-		return currentNode.data;
+
+		return last.data;
 	}
 
 	@Override
@@ -242,19 +248,21 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		if (first == null) {
 			throw new NoSuchElementException();
 		}
-		Type lastValue;
-		if (first.next == null) {
-			lastValue = first.data;
-			first = null;
+
+		Type lastValue = last.data;
+
+		if (first == last) {
+			clear();
 		} else {
 			Node<Type> currentNode = first;
-			while (currentNode.next.next != null) {
+			while(currentNode.next != last) {
 				currentNode = currentNode.next;
 			}
-			lastValue = currentNode.next.data;
 			currentNode.next = null;
-		}		
-		size--;
+			last = currentNode;
+			size--;
+		}
+		
 		return lastValue;
 	}
 
@@ -267,21 +275,23 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 	public void reverse() {
 		Node<Type> before = null;
 		Node<Type> current = first;
-		
-		while(current != null) {
+
+		while (current != null) {
 			Node<Type> temp = current.next;
 			current.next = before;
-			
+
 			before = current;
 			current = temp;
 		}
-		
+
+		last = first;
 		first = before;
 	}
 
 	@Override
 	public int compute_size_recursive() {
-		if (first == null) return 0;
+		if (first == null)
+			return 0;
 		return first.length();
 	}
 
@@ -301,8 +311,8 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 
 	/**
 	 *
-	 * FIXME: this method must NOT use recursion 
-	 * FIXME: for our purposes DO NOT use the Node toString method here
+	 * FIXME: this method must NOT use recursion FIXME: for our purposes DO NOT
+	 * use the Node toString method here
 	 *
 	 * Creates a string that describes the contents of the list, starting with
 	 * the size in parentheses for example, a list of the nubmers 0, 1, 2, 3
