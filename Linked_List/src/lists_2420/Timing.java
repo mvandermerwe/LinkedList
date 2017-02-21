@@ -63,9 +63,14 @@ public class Timing {
 			throw new IllegalArgumentException("The listClass paramater must be a List_2420");
 		}
 		
+		// in add_middle, the random generator for the index
+		// cannot generate a number between 0 and 0. Add one
+		// element to the array to avoid this
+		testArray.add_first(1);
+		
 		// perform the test for all specified values of N in the array N_VALUES
 		for (int numElements : N_VALUES) {
-			
+			System.out.println("Starting test: " + numElements + " " + listClass.getSimpleName() + " " + methodType.toString());
 			long start;
 			long end;
 			
@@ -112,9 +117,9 @@ public class Timing {
 		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,"");
 		testInsertMethod(Linked_List_2420.class,InsertType.END,"");
 		
-		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,"");
-		testInsertMethod(Array_List_2420.class,InsertType.MIDDLE,"");
-		testInsertMethod(Array_List_2420.class,InsertType.END,"");
+//		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,"");
+//		testInsertMethod(Array_List_2420.class,InsertType.MIDDLE,"");
+//		testInsertMethod(Array_List_2420.class,InsertType.END,"");
 	}
 	
 	

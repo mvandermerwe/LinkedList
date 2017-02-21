@@ -109,10 +109,13 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		 * @return a string representation of this chain of nodes
 		 */
 		public String toString() {
+			String nextString;
 			if (next == null) {
-				return "null";
+				nextString = "null";
+			} else {
+				nextString = next.toString();
 			}
-			return "[" + data + "]--> " + next.toString();
+			return "[" + data + "]--> " + nextString;
 		}
 	}
 
@@ -142,6 +145,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 
 	@Override
 	public void add_last(Type data) {
+		if (first == null) {
+			add_first(data);
+		}
 		Node<Type> currentNode = first;
 		while (currentNode.next != null) {
 			currentNode = currentNode.next;
@@ -153,6 +159,13 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 
 	@Override
 	public void add_middle(int after, Type data) {
+		if (first == null) {
+			if (after == 0) {
+				add_first(data);
+			} else {
+				throw new IndexOutOfBoundsException();
+			}
+		}
 		Node<Type> currentNode = first;
 		for (int index = 0; index < after; index++) {
 			if (currentNode.next == null) {

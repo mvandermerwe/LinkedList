@@ -16,7 +16,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 * The array contains the elements, with the rest of the elements being
 	 * null.
 	 */
-	private Integer[] backingStore = new Integer[1024]; // TODO change to 2 for
+	private Integer[] backingStore = new Integer[2]; // TODO change to 2 for
 														// testing
 	// both add methods must be tested when they will make the size of the array
 	// bigger
@@ -144,7 +144,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 		if (size >= backingStore.length) {
 			expandArray();
 			// recurse once, now with more room in the array.
-			add_first(data);
+			add_middle(after, data);
 		}
 
 		// move each elment in the array over one index
@@ -204,7 +204,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public boolean contains_recursive(Integer item) {
-		return contains_recursive_helper(item, start);
+		return contains_recursive_helper(item, 0);
 	}
 
 	/**
@@ -214,10 +214,10 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public Integer get_first() throws NoSuchElementException {
-		if(size == 0) {
+		if (size == 0) {
 			throw new NoSuchElementException();
 		}
-		return backingStoreGet(start);
+		return backingStoreGet(0);
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public Integer get_last() throws NoSuchElementException {
-		if(size == 0) {
+		if (size == 0) {
 			throw new NoSuchElementException();
 		}
 		return backingStoreGet(size - 1);
@@ -247,13 +247,14 @@ public class Array_List_2420 implements List_2420<Integer> {
 		Integer first = get_first();
 
 		// Set first val to null.
-		backingStoreSet(start, null);
+		backingStoreSet(0, null);
 
 		// Move all elements to left one.
-		for (int index = 1; backingStore[index] != null; index++) {
-			swap(index, index - 1);
-		}
+//		for (int index = 1; backingStore[index] != null; index++) {
+//			swap(index, index - 1);
+//		}
 
+		start++;
 		size--;
 		return first;
 	}
@@ -288,14 +289,14 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public void reverse() {
-		if(size == 0) {
+		if (size == 0 || size == 1) {
 			return;
 		}
 		
 		int middle = size / 2;
 
-		for (int index = start; index <= middle; index++) {
-			swap(index, size - 1 - index + start);
+		for (int index = 0; index <= middle; index++) {
+			swap(index, size - 1 - index);
 		}
 	}
 
@@ -307,7 +308,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 * @return 1 + size of array after it.
 	 */
 	private int compute_size_recursive_helper(int index) {
-		if (backingStore[index] == null) {
+		if (backingStoreGet(index) == null) {
 			return 0;
 		}
 
@@ -320,7 +321,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	@Override
 	public int compute_size_recursive() {
 		// Use helper function. Let it do its thing.
-		return compute_size_recursive_helper(start);
+		return compute_size_recursive_helper(0);
 	}
 
 	@Override
@@ -336,7 +337,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	public ArrayList<Integer> to_ArrayList() {
 		ArrayList<Integer> toArrayList = new ArrayList<Integer>();
 		// Simply add each element to an arraylist.
-		for (int index = start; index < size; index++) {
+		for (int index = 0; index < size; index++) {
 			toArrayList.add(backingStoreGet(index));
 		}
 		return toArrayList;
@@ -345,7 +346,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	@Override
 	public String toString() {
 		String toString = "(" + size + ") ";
-		for(int index = start; index < size; index++) {
+		for(int index = 0; index < size; index++) {
 			toString += "[" + backingStoreGet(index) + "]--> ";
 		}
 		toString += "null";
