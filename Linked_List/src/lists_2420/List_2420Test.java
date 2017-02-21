@@ -101,16 +101,14 @@ public class List_2420Test {
 	 */
 	@Test
 	public void testContainsRecursive() {
-		if (sampleList instanceof Linked_List_2420) {
-			// Test on normal size list.
-			assertTrue(sampleList.contains_recursive(2));
-			assertTrue(sampleList.contains_recursive(3));
-			assertTrue(sampleList.contains_recursive(5));
-			assertFalse(sampleList.contains_recursive(9));
+		// Test on normal size list.
+		assertTrue(sampleList.contains_recursive(2));
+		assertTrue(sampleList.contains_recursive(3));
+		assertTrue(sampleList.contains_recursive(5));
+		assertFalse(sampleList.contains_recursive(9));
 
-			// Test on small size list.
-			assertTrue(smallList.contains(4));
-		}
+		// Test on small size list.
+		assertTrue(smallList.contains(4));
 	}
 
 	/**
@@ -230,13 +228,11 @@ public class List_2420Test {
 	 */
 	@Test
 	public void testComputeSizeRecursive() {
-		if (sampleList instanceof Linked_List_2420) {
-			assertEquals(3, sampleList.compute_size_recursive());
+		assertEquals(3, sampleList.compute_size_recursive());
 
-			assertEquals(0, new_list().compute_size_recursive());
+		assertEquals(0, new_list().compute_size_recursive());
 
-			assertEquals(1, smallList.compute_size_recursive());
-		}
+		assertEquals(1, smallList.compute_size_recursive());
 	}
 
 	/**
@@ -337,11 +333,11 @@ public class List_2420Test {
 		Linked_List_2420.Node<Integer> node = new Linked_List_2420.Node<Integer>(5, null);
 		String nodeString = "[5]--> null";
 		assertEquals(nodeString, node.toString());
-		
+
 		Linked_List_2420.Node<Integer> node2 = new Linked_List_2420.Node<Integer>(3, node);
 		String node2String = "[3]--> [5]--> null";
 		assertEquals(node2String, node2.toString());
 	}
-	
+
 	// TODO constructor
 }
