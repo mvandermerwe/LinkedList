@@ -28,7 +28,7 @@ public class Timing {
 	}
 	
 	private static Random generator = new Random();
-	private static final Integer[] N_VALUES = {10,100,1_000,10_000,100_000,1_000_000};
+	private static final Integer[] N_VALUES = {10,100,1_000,10_000,100_000,1_000_000,10_000_000};
 	
 	public static void insertIntoBeginning(List_2420<Integer> list, int numberOfElements) {
 		for (int counter = 0; counter < numberOfElements; counter++) {
@@ -43,6 +43,12 @@ public class Timing {
 	}
 	
 	public static void insertAtEnd(List_2420<Integer> list, int numberOfElements) {
+		for (int counter = 0; counter < numberOfElements; counter++) {
+			list.add_last(1);
+		}
+	}
+	
+	public static void createArray(List_2420<Integer> list, int numberOfElements) {
 		for (int counter = 0; counter < numberOfElements; counter++) {
 			list.add_last(1);
 		}
@@ -66,7 +72,7 @@ public class Timing {
 		// in add_middle, the random generator for the index
 		// cannot generate a number between 0 and 0. Add one
 		// element to the array to avoid this
-		testArray.add_first(1);
+		//testArray.add_first(1);
 		
 		// perform the test for all specified values of N in the array N_VALUES
 		for (int numElements : N_VALUES) {
@@ -74,20 +80,22 @@ public class Timing {
 			long start;
 			long end;
 			
+			createArray(testArray, numElements);
+			
 			switch (methodType) {
 			case BEGINNING:
 				start = System.nanoTime();
-				insertIntoBeginning(testArray,numElements);
+				testArray.add_first(1);
 				end = System.nanoTime();
 				break;
 			case MIDDLE:
 				start = System.nanoTime();
-				insertIntoMiddle(testArray,numElements);
+				testArray.add_middle(generator.nextInt(numElements), 1);
 				end = System.nanoTime();
 				break;
 			case END:
 				start = System.nanoTime();
-				insertAtEnd(testArray,numElements);
+				testArray.add_last(1);
 				end = System.nanoTime();
 				break;
 			default:
@@ -114,12 +122,12 @@ public class Timing {
 	public static void main(String[] args) {
 		
 		testInsertMethod(Linked_List_2420.class,InsertType.BEGINNING,"");
-//		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,"");
+		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,"");
 		testInsertMethod(Linked_List_2420.class,InsertType.END,"");
 		
-//		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,"");
-//		testInsertMethod(Array_List_2420.class,InsertType.MIDDLE,"");
-//		testInsertMethod(Array_List_2420.class,InsertType.END,"");
+		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,"");
+		testInsertMethod(Array_List_2420.class,InsertType.MIDDLE,"");
+		testInsertMethod(Array_List_2420.class,InsertType.END,"");
 	}
 	
 	

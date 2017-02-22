@@ -84,7 +84,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	}
 
 	/**
-	 * 
+	 * Default constructor.
 	 */
 	public Array_List_2420() {
 		// we don't need to do anything, all of the fields have good default
@@ -260,7 +260,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	/**
 	 * Returns, then removes, the val at the first position in the array.
 	 * 
-	 * Takes O(n) time.
+	 * Takes O(1) time.
 	 */
 	@Override
 	public Integer remove_first() throws NoSuchElementException {
@@ -367,6 +367,9 @@ public class Array_List_2420 implements List_2420<Integer> {
 		return toArrayList;
 	}
 
+	/**
+	 * Convert our Array_List to a string.
+	 */
 	@Override
 	public String toString() {
 		String toString = "(" + size + ") ";
