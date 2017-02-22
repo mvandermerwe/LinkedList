@@ -63,6 +63,33 @@ public class List_2420Test {
 			fail("get_last threw an exception");
 		}
 	}
+	
+	/**
+	 * Test adding item to middle of list.
+	 */
+	@Test
+	public void testAddMiddle() {
+		sampleList.add_middle(1, 7);
+		String shouldBe = "(4) [5]--> [2]--> [7]--> [3]--> null";
+		assertEquals(shouldBe, sampleList.toString());
+		
+		try {
+			smallList.add_middle(3, 5);
+			// If we reach here, it didn't register the failure.
+			fail("Value added despite out of bounds array.");
+		} catch (IndexOutOfBoundsException e) {
+			// Test passes.
+		}
+		
+		List_2420<Integer> emptyList = new_list();
+		try {
+			emptyList.add_middle(3, 5);
+			// If we reach here, it didn't register the failure.
+			fail("Value added despite out of bounds array.");
+		} catch (IndexOutOfBoundsException e) {
+			// Test passes.
+		}
+	}
 
 	/**
 	 * Test clearing our list.

@@ -166,17 +166,20 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public void add_middle(int after, Integer data) {
+		if (after > size) {
+			throw new IndexOutOfBoundsException();
+		}
 
 		if (size >= backingStore.length) {
 			expandArray();
 		}
 
 		// move each elment in the array over one index
-		for (int index = size; after < index; index--) {
+		for (int index = size; after + 1 < index; index--) {
 			swap(index, index - 1);
 		}
 		// now, there is a 'null' at index after
-		backingStoreSet(after, data);
+		backingStoreSet(after + 1, data);
 		size++;
 	}
 
