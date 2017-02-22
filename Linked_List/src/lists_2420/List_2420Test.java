@@ -20,8 +20,8 @@ public class List_2420Test {
 	 * allow changing between linked and array lists
 	 */
 	public List_2420<Integer> new_list() {
-		return new Linked_List_2420<Integer>();
-		//return new Array_List_2420();
+//		return new Linked_List_2420<Integer>();
+		return new Array_List_2420(3);
 	}
 
 	@Before
