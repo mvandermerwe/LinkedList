@@ -332,7 +332,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 * @return 1 + size of array after it.
 	 */
 	private int compute_size_recursive_helper(int index) {
-		if (backingStoreGet(index) == null) {
+		if (index == size) {
 			return 0;
 		}
 
