@@ -276,10 +276,6 @@ public class Array_List_2420 implements List_2420<Integer> {
 		// Set first val to null.
 		backingStoreSet(0, null);
 
-		// Move all elements to left one.
-//		for (int index = 1; backingStore[index] != null; index++) {
-//			swap(index, index - 1);
-//		}
 
 		start++;
 		size--;
