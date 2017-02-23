@@ -192,7 +192,7 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 	 */
 	@Override
 	public void add_middle(int after, Type data) {
-		if (first == null) {
+		if (first == null || after < 0) {
 			if (after == 0) {
 				add_first(data);
 			} else {
