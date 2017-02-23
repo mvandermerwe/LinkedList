@@ -27,23 +27,24 @@ public class Timing {
 		}
 	}
 	
+	private static int NUM_ITERATIONS = 100;
 	private static Random generator = new Random();
-	private static final Integer[] N_VALUES = {10,100,1_000,10_000,100_000,1_000_000,10_000_000};
+	private static final Integer[] N_VALUES = {1_000_000,2_000_000,3_000_000,4_000_000,5_000_000,6_000_000,7_000_000,8_000_000,9_000_000,10_000_000};
 	
-	public static void insertIntoBeginning(List_2420<Integer> list, int numberOfElements) {
-		for (int counter = 0; counter < numberOfElements; counter++) {
+	public static void insertIntoBeginning(List_2420<Integer> list) {
+		for (int counter = 0; counter < NUM_ITERATIONS; counter++) {
 			list.add_first(1);
 		}
 	}
 	
-	public static void insertIntoMiddle(List_2420<Integer> list, int numberOfElements) {
-		for (int counter = 0; counter < numberOfElements; counter++) {
+	public static void insertIntoMiddle(List_2420<Integer> list) {
+		for (int counter = 0; counter < NUM_ITERATIONS; counter++) {
 			list.add_middle(generator.nextInt(list.size()), 1);
 		}
 	}
 	
-	public static void insertAtEnd(List_2420<Integer> list, int numberOfElements) {
-		for (int counter = 0; counter < numberOfElements; counter++) {
+	public static void insertAtEnd(List_2420<Integer> list) {
+		for (int counter = 0; counter < NUM_ITERATIONS; counter++) {
 			list.add_last(1);
 		}
 	}
@@ -85,24 +86,24 @@ public class Timing {
 			switch (methodType) {
 			case BEGINNING:
 				start = System.nanoTime();
-				testArray.add_first(1);
+				insertIntoBeginning(testArray);
 				end = System.nanoTime();
 				break;
 			case MIDDLE:
 				start = System.nanoTime();
-				testArray.add_middle(generator.nextInt(numElements), 1);
+				insertIntoMiddle(testArray);
 				end = System.nanoTime();
 				break;
 			case END:
 				start = System.nanoTime();
-				testArray.add_last(1);
+				insertAtEnd(testArray);
 				end = System.nanoTime();
 				break;
 			default:
 				throw new RuntimeException("Unknown case of InsertType inner enum");
 			}
 			
-			double elapsedSeconds = (end - start) / ((double) 1_000_000_000);
+			double elapsedSeconds = ((end - start) / ((double) 1_000_000_000)) / NUM_ITERATIONS;
 			
 			fileData.append(numElements + "," + elapsedSeconds + "\n");
 		}
@@ -121,13 +122,15 @@ public class Timing {
 	
 	public static void main(String[] args) {
 		
-		testInsertMethod(Linked_List_2420.class,InsertType.BEGINNING,"");
-		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,"");
-		testInsertMethod(Linked_List_2420.class,InsertType.END,"");
+		String suffix = "100";
 		
-		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,"");
-		testInsertMethod(Array_List_2420.class,InsertType.MIDDLE,"");
-		testInsertMethod(Array_List_2420.class,InsertType.END,"");
+		testInsertMethod(Linked_List_2420.class,InsertType.BEGINNING,suffix);
+		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,suffix);
+		testInsertMethod(Linked_List_2420.class,InsertType.END,suffix);
+		
+		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,suffix);
+		testInsertMethod(Array_List_2420.class,InsertType.MIDDLE,suffix);
+		testInsertMethod(Array_List_2420.class,InsertType.END,suffix);
 	}
 	
 	
