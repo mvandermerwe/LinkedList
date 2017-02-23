@@ -166,7 +166,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	 */
 	@Override
 	public void add_middle(int after, Integer data) {
-		if (after > size) {
+		if (after > size || after < 0) {
 			throw new IndexOutOfBoundsException();
 		}
 

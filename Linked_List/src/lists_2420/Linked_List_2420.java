@@ -13,23 +13,27 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 	private int size;
 
 	/**
-	 * FIXME: comments
-	 *
 	 * Pictorially, a node is:
 	 *
 	 * data next ---------- | 5 |---+---> ----------
 	 * 
 	 * Note, while a 5 is used above any "Type" could be contained in the node
+	 * 
+	 * Our node will be the helper class for a linked list. Each node stores
+	 * data for the list and stores a pointer to the next Node in the list.
 	 */
 	static class Node<Type> {
-		//
+
 		private Type data;
 		private Node<Type> next;
 
 		/**
+		 * Constructor adds data and points to next node.
 		 * 
 		 * @param the_data
+		 *            - data for current node.
 		 * @param after_me
+		 *            - next node in list.
 		 */
 		Node(Type the_data, Node<Type> after_me) {
 			data = the_data;
@@ -38,7 +42,7 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 
 		/**
 		 * 
-		 * This function must be written recursively.
+		 * Determines the length of our list.
 		 * 
 		 * @return the length of this "chain of nodes", including self.
 		 * 
@@ -71,20 +75,22 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		}
 
 		/**
-		 * This function must be written recursively (using a helper method,
-		 * with the arraylist as a parameter, to do the recursion)
 		 * 
-		 * Create an array list containing the data from this node and all nodes
-		 * after it.
-		 * 
-		 * In the helper method, add the data to the array list after the
-		 * recursive call, thus "reversing" the list.
-		 *
+		 * Creates an array list containing the data from this node and all
+		 * nodes after it, after reversing the order.
 		 */
 		ArrayList<Type> to_ArrayList_post_recursive() {
 			return to_ArrayList_post_recursive(new ArrayList<Type>());
 		}
 
+		/**
+		 * Helper function to add elements in reverse order to an array list.
+		 * 
+		 * @param arrayList
+		 *            - array list to add elements to.
+		 * @return arraylist with this element and all elements after it added
+		 *         in reverse order.
+		 */
 		private ArrayList<Type> to_ArrayList_post_recursive(ArrayList<Type> arrayList) {
 			if (next == null) {
 				arrayList.add(data);
@@ -96,9 +102,6 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		}
 
 		/**
-		 *
-		 * FIXME: this method must be implemented using recursion
-		 *
 		 * Creates a string that describes the current node and all following
 		 * nodes, for example, a list of the nubmers 0, 1, 2, 3 would print as:
 		 * 
@@ -120,6 +123,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		}
 	}
 
+	/**
+	 * Default constructor - empty list.
+	 */
 	public Linked_List_2420() {
 		first = null;
 		size = 0;
@@ -138,6 +144,12 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		size = first.length();
 	}
 
+	/**
+	 * Add element data as a new node in the front of our LinkedList.
+	 * 
+	 * @param data
+	 *            - data to be put into our new node.
+	 */
 	@Override
 	public void add_first(Type data) {
 		Node<Type> newFirst = new Node<>(data, first);
@@ -149,6 +161,12 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		}
 	}
 
+	/**
+	 * Add element data as a new node at the end of our LinkedList.
+	 * 
+	 * @param data
+	 *            - data to be put into our new node.
+	 */
 	@Override
 	public void add_last(Type data) {
 		// If nothing in list, adds new first.
@@ -164,6 +182,14 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		size++;
 	}
 
+	/**
+	 * Add element as a new node at the after the provided index.
+	 * 
+	 * @param after
+	 *            - index to place new node after.
+	 * @param data
+	 *            - data to be put into our new node.
+	 */
 	@Override
 	public void add_middle(int after, Type data) {
 		if (first == null) {
@@ -201,6 +227,12 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		size = 0;
 	}
 
+	/**
+	 * Test if our list contains the given data.
+	 * 
+	 * @param item
+	 *            - item to look for inside of our list.
+	 */
 	@Override
 	public boolean contains(Type item) {
 		for (Node<Type> currentNode = first; currentNode != null; currentNode = currentNode.next) {
@@ -210,11 +242,20 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		return false;
 	}
 
+	/**
+	 * Test if our list contains the given data (recursively).
+	 * 
+	 * @param item
+	 *            - item to look for inside of our list.
+	 */
 	@Override
 	public boolean contains_recursive(Type item) {
 		return first.contains_recursive(item);
 	}
 
+	/**
+	 * Grab the value of the first Node in the list.
+	 */
 	@Override
 	public Type get_first() throws NoSuchElementException {
 		if (first == null) {
@@ -223,6 +264,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		return first.data;
 	}
 
+	/**
+	 * Grab the value of the last Node in the list.
+	 */
 	@Override
 	public Type get_last() throws NoSuchElementException {
 		if (first == null) {
@@ -232,6 +276,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		return last.data;
 	}
 
+	/**
+	 * Grab first value and delete the first node.
+	 */
 	@Override
 	public Type remove_first() throws NoSuchElementException {
 		if (first == null) {
@@ -243,6 +290,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		return firstValue;
 	}
 
+	/**
+	 * Grab last value and delete last node.
+	 */
 	@Override
 	public Type remove_last() throws NoSuchElementException {
 		if (first == null) {
@@ -255,22 +305,28 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 			clear();
 		} else {
 			Node<Type> currentNode = first;
-			while(currentNode.next != last) {
+			while (currentNode.next != last) {
 				currentNode = currentNode.next;
 			}
 			currentNode.next = null;
 			last = currentNode;
 			size--;
 		}
-		
+
 		return lastValue;
 	}
 
+	/**
+	 * Returns size of list.
+	 */
 	@Override
 	public int size() {
 		return size;
 	}
 
+	/**
+	 * Returns list in reverse order.
+	 */
 	@Override
 	public void reverse() {
 		Node<Type> before = null;
@@ -288,6 +344,9 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		first = before;
 	}
 
+	/**
+	 * Returns size of list (computed recursively).
+	 */
 	@Override
 	public int compute_size_recursive() {
 		if (first == null)
@@ -295,11 +354,17 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 		return first.length();
 	}
 
+	/**
+	 * Return the list as an arraylist in reverse.
+	 */
 	@Override
 	public ArrayList<Type> to_ArrayList_post_recurse() {
 		return first.to_ArrayList_post_recursive();
 	}
 
+	/**
+	 * Return the list as an array list.
+	 */
 	@Override
 	public ArrayList<Type> to_ArrayList() {
 		ArrayList<Type> toArrayList = new ArrayList<>();
@@ -310,9 +375,6 @@ public class Linked_List_2420<Type> implements List_2420<Type> {
 	}
 
 	/**
-	 *
-	 * FIXME: this method must NOT use recursion FIXME: for our purposes DO NOT
-	 * use the Node toString method here
 	 *
 	 * Creates a string that describes the contents of the list, starting with
 	 * the size in parentheses for example, a list of the nubmers 0, 1, 2, 3
