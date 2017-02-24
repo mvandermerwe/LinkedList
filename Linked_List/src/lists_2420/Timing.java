@@ -37,9 +37,9 @@ public class Timing {
 		}
 	}
 	
-	public static void insertIntoMiddle(List_2420<Integer> list) {
+	public static void insertIntoMiddle(List_2420<Integer> list,int index) {
 		for (int counter = 0; counter < NUM_ITERATIONS; counter++) {
-			list.add_middle(generator.nextInt(list.size()), 1);
+			list.add_middle(index, 1);
 		}
 	}
 	
@@ -90,8 +90,9 @@ public class Timing {
 				end = System.nanoTime();
 				break;
 			case MIDDLE:
+				int index = generator.nextInt(testArray.size());
 				start = System.nanoTime();
-				insertIntoMiddle(testArray);
+				insertIntoMiddle(testArray, index);
 				end = System.nanoTime();
 				break;
 			case END:
@@ -122,15 +123,15 @@ public class Timing {
 	
 	public static void main(String[] args) {
 		
-		String suffix = "100";
+		String suffix = "norand_2";
 		
-		testInsertMethod(Linked_List_2420.class,InsertType.BEGINNING,suffix);
+//		testInsertMethod(Linked_List_2420.class,InsertType.BEGINNING,suffix);
 		testInsertMethod(Linked_List_2420.class,InsertType.MIDDLE,suffix);
-		testInsertMethod(Linked_List_2420.class,InsertType.END,suffix);
+//		testInsertMethod(Linked_List_2420.class,InsertType.END,suffix);
 		
-		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,suffix);
+//		testInsertMethod(Array_List_2420.class,InsertType.BEGINNING,suffix);
 		testInsertMethod(Array_List_2420.class,InsertType.MIDDLE,suffix);
-		testInsertMethod(Array_List_2420.class,InsertType.END,suffix);
+//		testInsertMethod(Array_List_2420.class,InsertType.END,suffix);
 	}
 	
 	
