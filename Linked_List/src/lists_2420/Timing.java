@@ -53,7 +53,9 @@ public class Timing {
 	}
 
 	public static void insertAtEnd(List_2420<Integer> list) {
-		list.remove_last();
+		for (int counter = 0; counter < NUM_ITERATIONS; counter++) {
+			list.add_last(1);
+		}
 	}
 
 	public static void removeFromEnd(List_2420<Integer> list) {
@@ -155,10 +157,10 @@ public class Timing {
 //		testInsertMethod(Array_List_2420.class, InsertType.MIDDLE, suffix);
 //		testInsertMethod(Array_List_2420.class, InsertType.END, suffix);
 		
-		//testInsertMethod(Linked_List_2420.class, InsertType.REMOVEBEGIN, suffix);
+		testInsertMethod(Linked_List_2420.class, InsertType.REMOVEBEGIN, suffix);
 		testInsertMethod(Linked_List_2420.class, InsertType.REMOVEEND, suffix);
 		
-		//testInsertMethod(Array_List_2420.class, InsertType.REMOVEBEGIN, suffix);
+		testInsertMethod(Array_List_2420.class, InsertType.REMOVEBEGIN, suffix);
 		testInsertMethod(Array_List_2420.class, InsertType.REMOVEEND, suffix);
 	}
 

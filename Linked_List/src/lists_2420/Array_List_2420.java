@@ -372,7 +372,7 @@ public class Array_List_2420 implements List_2420<Integer> {
 	@Override
 	public String toString() {
 		String toString = "(" + size + ") ";
-		for(int index = 0; index < size; index++) {
+		for (int index = 0; index < size; index++) {
 			toString += "[" + backingStoreGet(index) + "]--> ";
 		}
 		toString += "null";
